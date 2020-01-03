@@ -32,12 +32,10 @@ namespace routine.Api.Entities
 
         [Column("belong_project_id")]
         public long? belongProjectId { get; set; }
-        [NotMapped]
-        public string belongProjectName { get; set; }
+
         [Column("belong_dept_id")]
         public int? belongDeptId { get; set; }
-        [NotMapped]
-        public string belongDeptName { get; set; }
+  
 
         public string lnglat { get; set; }
         public string name { get; set; }

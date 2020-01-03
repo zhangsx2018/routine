@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace routine.Api.Controllers
 {
     [ApiController]
-    public abstract class RoutineBaseController<T,E> : ControllerBase
+    public abstract class RoutineBaseController<T,E,F> : ControllerBase
         where T:DbContext
         where E:class
     {
@@ -36,14 +36,15 @@ namespace routine.Api.Controllers
             var _query = _repository.GetAsync(info, entity, conditions, out itemcount);
 
             var list = await _query.ToListAsync();
+            var result = _mapper.Map<List<F>>(list);
             Page page = new Page();
             if (  (info.page == 0) && (info.rows == 0))
             {
-                return Result.SUCCESS().setData(list);
+                return Result.SUCCESS().setData(result);
 
             }
             page.total = itemcount;
-            page.rows = list;
+            page.rows = result;
             return Result.SUCCESS().setData(page);
 
            

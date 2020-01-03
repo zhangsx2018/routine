@@ -16,7 +16,7 @@ namespace routine.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DeviceMainController : RoutineBaseController<DeviceDbContext, DeviceMain>
+    public class DeviceMainController : RoutineBaseController<DeviceDbContext, DeviceMain,DeviceMainDto>
     {
         private readonly DeviceDbContext _deviceDbContext;
         private readonly IMapper _mapper;
