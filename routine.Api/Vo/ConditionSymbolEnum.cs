@@ -7,15 +7,15 @@ namespace routine.Api.Vo
 {
     public enum ConditionSymbolEnum
     {
-        Contains,
+        Lk,
         Equal,
-        NotEqual,
-        Greater,
-        GreaterEqual,
-        Less,
-        LessEqual,
+        Neq,
+        Gt,
+        Geq,
+        Le,
+        Leq,
         In,
-        Between
+        Bt
 
     }
 }

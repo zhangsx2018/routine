@@ -17,22 +17,22 @@ namespace routine.Api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetService<RoutineDbContext>();
-                try
-                {
-                    dbContext.Database.EnsureDeleted();
-                    dbContext.Database.Migrate();
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var dbContext = scope.ServiceProvider.GetService<RoutineDbContext>();
+            //    try
+            //    {
+            //        dbContext.Database.EnsureDeleted();
+            //        dbContext.Database.Migrate();
 
-                }
-                catch (Exception e)
-                {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(e, "Database Migrate error ");
-                    throw;
-                }   
-            }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            //        logger.LogError(e, "Database Migrate error ");
+            //        throw;
+            //    }   
+            //}
 
             host.Run();
         }

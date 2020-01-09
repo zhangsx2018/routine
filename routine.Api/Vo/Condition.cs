@@ -23,5 +23,7 @@ namespace routine.Api.Vo
 
         public OrderEnum Order { get; set; }
 
+     
+
     }
 }

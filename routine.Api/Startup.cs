@@ -39,13 +39,16 @@ namespace routine.Api
             {
                 op.UseSqlite("Data Source = routine.db");
             });
+            /*
+             *×¢²áÊý¾Ý¿â
+             */
             services.AddDbContext<DeviceDbContext>(op =>
             {
                 op.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
             });
             /*
-            * ×¢²ánacos
-            */
+             * ×¢²ánacos
+             */
             services.AddNacosAspNetCore(Configuration);
             /*
              * ×¢²áautoMapper
@@ -55,7 +58,7 @@ namespace routine.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+      
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

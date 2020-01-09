@@ -1,28 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using routine.Api.Data;
+using routine.Api.Entities;
+using routine.Api.Models;
+using routine.Api.Services;
+using routine.Api.Vo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using routine.Api.Data;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using routine.Api.Entities;
-using routine.Api.Models;
-using routine.Api.Vo;
-using System.Reflection;
-using routine.Api.Services;
 
 namespace routine.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DeviceMainController : RoutineBaseController<DeviceDbContext, DeviceMain,DeviceMainDto>
+    public class DeviceMainController : RoutineBaseController<DeviceDbContext, DeviceMain, DeviceMainDto>
     {
         private readonly DeviceDbContext _deviceDbContext;
         private readonly IMapper _mapper;
         private readonly Repository<DeviceDbContext, DeviceMain> _repository;
 
-        public DeviceMainController(IMapper mapper, DeviceDbContext deviceDbContext, Repository<DeviceDbContext, DeviceMain> repository) 
+        public DeviceMainController(IMapper mapper, DeviceDbContext deviceDbContext, Repository<DeviceDbContext, DeviceMain> repository)
             : base(mapper, deviceDbContext, repository)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -31,12 +30,19 @@ namespace routine.Api.Controllers
         }
 
         [HttpGet]
-        public override Task<Result> get([FromQuery] PageInfo info, [FromQuery] DeviceMain entity, [FromQuery] List<Condition> conditions)
+        public override Task<Result> Get([FromQuery] PageInfo info, [FromQuery] DeviceMain entity, [FromQuery] List<Condition> conditions)
         {
-           
-            return base.get(info, entity, conditions);
+            entity.flag = true;
+            return base.Get(info, entity, conditions);
         }
+        public override IQueryable<DeviceMain> ExpandQuery(IQueryable<DeviceMain> query)
+        {
 
+            return query
+              .Include(x => x.DeviceFiles)
+              .Include(x => x.DeviceType)
+              .Include(x => x.DeviceStatus);
+        }
         //[HttpGet]
         //public async Task<Result> GetDevices([FromQuery] DeviceMain device)
         //{
