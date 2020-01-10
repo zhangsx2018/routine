@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using routine.Api.Data;
 using routine.Api.Entities;
+using routine.Api.Helps;
 using routine.Api.Models;
 using routine.Api.Services;
 using routine.Api.Vo;
@@ -35,6 +36,7 @@ namespace routine.Api.Controllers
             entity.flag = true;
             return base.Get(info, entity, conditions);
         }
+
         public override IQueryable<DeviceMain> ExpandQuery(IQueryable<DeviceMain> query)
         {
 
@@ -43,6 +45,26 @@ namespace routine.Api.Controllers
               .Include(x => x.DeviceType)
               .Include(x => x.DeviceStatus);
         }
+        [HttpPut]
+        public override Task<Result> Update([FromForm] DeviceMain entity)
+        {
+            return base.Update(entity);
+        }
+        [HttpPut]
+        [Consumes("application/json")]
+        public override Task<Result> UpdateJson([FromBody] DeviceMain entity)
+        {
+            return base.UpdateJson(entity);
+        }
+        [HttpDelete("{ids}")]
+        public override Task<Result> Delete(
+            [FromRoute]
+            [ModelBinder(BinderType = typeof(ArrayModelBingder))]
+            IEnumerable<long> ids)
+        {
+            return base.Delete(ids);
+        }
+        
         //[HttpGet]
         //public async Task<Result> GetDevices([FromQuery] DeviceMain device)
         //{

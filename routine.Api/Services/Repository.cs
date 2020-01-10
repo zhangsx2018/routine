@@ -21,12 +21,12 @@ namespace routine.Api.Services
 
         public void Add(E t)
         {
-            _dbContext.Add(t);
+            _dbContext.Set<E>().Add(t);
         }
 
         public void Delete(E t)
         {
-            _dbContext.Remove(t);
+            _dbContext.Set<E>().Remove(t);
         }
         public IQueryable<E> GetAsync(PageInfo info, E entity, List<Condition> conditions, out int total)
         {
@@ -86,9 +86,9 @@ namespace routine.Api.Services
         }
 
 
-        public async Task<bool> SaveAsync()
+        public async Task<int> SaveAsync()
         {
-            return await _dbContext.SaveChangesAsync() >= 0;
+            return await _dbContext.SaveChangesAsync();
         }
 
         public void Update(E t)

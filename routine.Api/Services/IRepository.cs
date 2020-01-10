@@ -15,6 +15,6 @@ namespace routine.Api.Services
         void Update(T t);
         void Delete(T t);
      
-        Task<bool> SaveAsync();
+        Task<int> SaveAsync();
     }
 }
